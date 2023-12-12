@@ -35,5 +35,94 @@ ResultSet rs = pst.executeQuery();
 
 while (rs.next()){
 registros[0] = rs.getString("idmatricula");
-registros[1] = rs.getString("idmatricula");
+registros[1] = rs.getString("idEstudiante");
+registros[2] = rs.getString("identificacion");
+registros[3] = rs.getString("Nombres");
+registros[4] = rs.getString("Apellidos");
+registros[5] = rs.getString("nombre");
+registros[6] = rs.getString("nivel");
+registros[7] = rs.getString("periodo");
+registros[8] = rs.getString("estado");
+registros[9] = rs.getString("idgrado");
 
+modelo.addRow(registros);
+}
+return modelo;
+
+}catch (Exception e){
+JOptionPane.showMessageDialog(null, e);
+return null;
+}
+}
+public boolean insertar(dmatricula v){
+sql = "insert into matricula(idestudiante,idgrado,periodo,estado) values (?,?,?,?) ";
+try{
+preparedStatement pst = cn.prepareStatement(sql);
+
+pst.setString(1, v.getEstudiante());
+pst.setString(2, v.getGrado());
+pst.setString(3, v.getPeriodo());
+pat.setString(4, v.getEstado());
+
+int n = pst.executeUpdate();
+if(n !=0){
+return true;
+} else {
+return false;
+}catch(Exception e){
+JOptionPane.showMessageDialog(null, e);
+return false;
+}
+}
+public boolean editar(dmatricula v){
+sql = "update matricula set idestudiante=?,idgrado=?,periodo=?,estado=? where idmatricula=?";
+
+try{
+preparedStatement pst = cn.prepareStatement(sql);
+
+//-----empieza 0 es codigo 1 el siguiente campo sucesivamente
+
+pst.setstring(1, v.getEstudiante());
+pst.setString(2, v.getGrado());
+pst.setString(3, v.getPeriodo());
+pst.setString(4, v.getEstado());
+pst.setInt(5, v.getId());
+
+int n = pst.executeUpdate();
+if(n ! = 0){
+return true;
+} else {
+return false;
+
+}
+
+}catch (Exception e){
+JOptionPane.showMessageDialog(null, e);
+return false;
+
+}
+
+}
+public boolean eliminar(dmatricula v){
+sql = "delete from matricula where idmatricula=?";
+
+try{
+PreparedStatement pst = cn.prepareStatement(sql);
+pst.setInt(1, v.getId());
+
+int n = pst.executeUpdate();
+
+if(n ! = 0){
+return true;
+
+} else {
+return false;
+
+}
+
+}catch (Exception e){
+JOptionPane.showMessageDialog(null, e);
+return false;
+}
+}
+}
