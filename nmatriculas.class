@@ -31,4 +31,4 @@ try{
 preparedStatement pst = cn.preparedStatement(sql);
 pst.setString(1, "%" + buscar + "%");
 
-ResultSet rs = pst.executeQuery();
+ResultSet rs = pst.executeQuery(); 
